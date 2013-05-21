@@ -27,21 +27,27 @@ The Meteor documentation says this about
 > invalidations (template redraws), making your program more
 > efficient.
 
+
 For example, this version of `isSunny` triggers an invalidation when
 the weather changes from "cloudy" to "rainy", even though `isSunny`
 returns `false` for both:
 
+```
 var isSunny = function () {
   return Session.get("weather") === "sunny";
 };
+```
+
 
 Using `Session.equals` fixes that:
 
+```
 var isSunny = function () {
   return Session.equals("weather", "sunny");
 };
 
 ```
+
 
 If `Session.equals` didn't exist, we could do the same thing with:
 
@@ -50,6 +56,7 @@ var isSunny = isolateValue(function () {
   return Session.get("weather") === "sunny";
 });
 ```
+
 
 `isolateValue` can also be used for more general reactive isolation.
 Suppose `getWeather()` returned an object with fields like
