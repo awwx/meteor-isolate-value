@@ -60,8 +60,8 @@ var isSunny = isolateValue(function () {
 
 `isolateValue` can also be used for more general reactive isolation.
 Suppose `getWeather()` returned an object with fields like
-`temperature`, `outlook`, `windSpeed`..., but you were only using the
-`outlook` field.  You could use:
+`temperature`, `outlook`, and `windSpeed`..., but you were only using
+the `outlook` field.  You could use:
 
 ```
 var getOutlook = isolateValue(function () {
@@ -83,7 +83,7 @@ wind speed changes but the outlook stays the same.
 var getFoo = awwx.isolateValue(function () { ... });
 ```
 
-or if you prefer you can "import" the function simply by assinging it
+or if you prefer you can "import" the function simply by assigning it
 to a variable:
 
 ```
