@@ -66,7 +66,7 @@ Suppose `getWeather()` returned an object with fields like
 ```
 var getOutlook = isolateValue(function () {
   return getWeather().outlook;
-};
+});
 ```
 
 Now `getOutlook()` won't trigger an invalidation if the temperature or
