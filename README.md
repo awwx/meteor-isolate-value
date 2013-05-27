@@ -4,7 +4,7 @@
 isolateValue(fn)
 ```
 
-Returns a function which calls `fn` and returns the same value as `fn`
+Creates a function which calls `fn` and returns the same value as `fn`
 does, but in a reactive context only invalidates the current
 computation when the value returned by the function *changes*.
 
@@ -28,20 +28,23 @@ The Meteor documentation says this about
 > efficient.
 
 
-For example, this version of `isSunny` triggers an invalidation when
-the weather changes from "cloudy" to "rainy", even though `isSunny`
-returns `false` for both:
+For example, this inefficient version of `isSunny` triggers an invalidation
+when the weather changes from "cloudy" to "rainy", even though `isSunny`
+returns `false` for both... and so a computation using `isSunny` wouldn't need
+to be rerun:
 
 ```
+// inefficient
 var isSunny = function () {
   return Session.get("weather") === "sunny";
 };
 ```
 
 
-Using `Session.equals` fixes that:
+Using `Session.equals` fixes the inefficiency:
 
 ```
+// efficient
 var isSunny = function () {
   return Session.equals("weather", "sunny");
 };
@@ -52,6 +55,7 @@ var isSunny = function () {
 If `Session.equals` didn't exist, we could do the same thing with:
 
 ```
+// also efficient
 var isSunny = isolateValue(function () {
   return Session.get("weather") === "sunny";
 });
