@@ -30,8 +30,8 @@ The Meteor documentation says this about
 
 For example, this inefficient version of `isSunny` triggers an invalidation
 when the weather changes from "cloudy" to "rainy", even though `isSunny`
-returns `false` for both... and so a computation using `isSunny` wouldn't need
-to be rerun:
+returns `false` for both... and so a computation using `isSunny` would
+be rerun needlessly:
 
 ```
 // inefficient
