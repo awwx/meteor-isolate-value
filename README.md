@@ -62,10 +62,12 @@ var isSunny = isolateValue(function () {
 ```
 
 
-`isolateValue` can also be used for more general reactive isolation.
-Suppose `getWeather()` returned an object with fields like
+`isolateValue` is more general because it can be used with any EJSON-compatible
+value, not just for an equality test returning `true` or `false`.
+
+For example, suppose `getWeather()` returned an object with fields like
 `temperature`, `outlook`, and `windSpeed`..., but you were only using
-the `outlook` field.  You could use:
+the `outlook` field.  You could isolate the outlook value with:
 
 ```
 var getOutlook = isolateValue(function () {
@@ -73,8 +75,8 @@ var getOutlook = isolateValue(function () {
 });
 ```
 
-Now `getOutlook()` won't trigger an invalidation if the temperature or
-wind speed changes but the outlook stays the same.
+Calling `getOutlook()` won't trigger an invalidation if the temperature or
+wind speed changes as long as the outlook stays the same.
 
 
 ## Exports
