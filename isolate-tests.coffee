@@ -1,5 +1,3 @@
-isolateValue = awwx.isolateValue
-
 Tinytest.add 'isolate-value', (test) ->
 
   weather = 'sunny'

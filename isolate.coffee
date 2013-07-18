@@ -1,3 +1,5 @@
+### @export isolateValue ###
+
 isolateValue = (fn, _test_changeCallback) ->
   firstTime = true
   lastValue = null
@@ -22,5 +24,5 @@ isolateValue = (fn, _test_changeCallback) ->
     dep.depend()
     return lastValue
 
-
-(@awwx or = {}).isolateValue = isolateValue
+unless Package?
+  @isolateValue = isolateValue
