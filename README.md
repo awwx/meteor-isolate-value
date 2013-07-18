@@ -47,7 +47,7 @@ Calls `fn` and returns the value that `fn` returns.
 inner computation is invalidated (by something `fn` depends on), `fn`
 is called again, and `isolateValue` checks if the value returned by
 `fn` has changed (via
-[`EJSON.equals`](http://docs.meteor.com/#ejson_equals).
+[`EJSON.equals`](http://docs.meteor.com/#ejson_equals)).
 
 The outer computation (the one of the caller to `isolateValue`) is
 only invalidated when the value is different.
