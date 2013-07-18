@@ -1,0 +1,8 @@
+{
+  "name": "isolate-value",
+  "description": "isolate reactive values",
+  "homepage": "https://github.com/awwx/meteor-isolate-value#readme",
+  "author": "Andrew Wilcox",
+  "version": "1.0.0",
+  "git": "https://github.com/awwx/meteor-isolate-value.git"
+}
