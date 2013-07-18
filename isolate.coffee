@@ -1,28 +1,24 @@
 ### @export isolateValue ###
 
-isolateValue = (fn, _test_changeCallback) ->
+isolateValue = (fn) ->
   firstTime = true
   lastValue = null
-  theComputation = null
+  outerComputation = Deps.currentComputation
   dep = new Deps.Dependency()
   Deps.autorun (c) ->
-    if theComputation?.stopped
+    if outerComputation?.stopped
       c.stop()
       return
-    _test_changeCallback?()
     value = fn()
     if firstTime
       lastValue = value
       firstTime = false
     else
       if not EJSON.equals(value, lastValue)
-        lastValue = value
         dep.changed()
     return
-  ->
-    theComputation = Deps.currentComputation
-    dep.depend()
-    return lastValue
+  dep.depend()
+  return lastValue
 
 unless Package?
   @isolateValue = isolateValue

@@ -29,13 +29,28 @@ computation, and so will only rerender or rerun if that result
 changes.
 
 
+## Version
+
+2.0.0
+
+
+## API
+
 ```
 isolateValue(fn)
 ```
 
-Creates and returns a function which calls `fn` and returns the same
-value as `fn` does, but in a reactive context only invalidates the
-current computation when the value returned by the function *changes*.
+Calls `fn` and returns the value that `fn` returns.
+
+`fn` is called in a new
+[computation](http://docs.meteor.com/#deps_computation).  When the
+inner computation is invalidated (by something `fn` depends on), `fn`
+is called again, and `isolateValue` checks if the value returned by
+`fn` has changed (via
+[`EJSON.equals`](http://docs.meteor.com/#ejson_equals).
+
+The outer computation (the one of the caller to `isolateValue`) is
+only invalidated when the value is different.
 
 The value returned by the function needs to be an [EJSON-compatible
 value](http://docs.meteor.com/#ejson).
@@ -72,9 +87,44 @@ Adding `isolateValue` causes the template to rerender only when "foo"
 is added or removed from the list:
 
 ```
-  Template.hello.isFoo = isolateValue(function () {
-    return _.contains(Session.get('list'), 'foo');
-  });
+  Template.hello.isFoo = function () {
+    return isolateValue(function () {
+      return _.contains(Session.get('list'), 'foo');
+    });
+  };
+```
+
+### Using a template data value
+
+Here the template is rendered with a document or other object that has
+a `name` field.  This helper checks if the name is on the list:
+
+```
+  Template.hello.isOnList = function () {
+    return _.contains(Session.get('list'), this.name);
+  };
+```
+
+To convert to using `isolateValue`, we need to capture either `this`:
+
+```
+  Template.hello.isOnList = function () {
+    var self = this;
+    return isolateValue(function () {
+      return _.contains(Session.get('list'), self.name);
+    });
+  };
+```
+
+or the name itself, whichever is more convenient:
+
+```
+  Template.hello.isOnList = function () {
+    var name = this.name;
+    return isolateValue(function () {
+      return _.contains(Session.get('list'), name);
+    });
+  };
 ```
 
 
@@ -122,9 +172,11 @@ If `Session.equals` didn't exist, we could do the same thing with:
 
 ```
 // also efficient
-var isSunny = isolateValue(function () {
-  return Session.get("weather") === "sunny";
-});
+var isSunny = function () {
+  return isolateValue(function () {
+    return Session.get("weather") === "sunny";
+  });
+};
 ```
 
 
@@ -136,9 +188,11 @@ For example, suppose `getWeather()` returned an object with fields like
 the `outlook` field.  You could isolate the outlook value with:
 
 ```
-var getOutlook = isolateValue(function () {
-  return getWeather().outlook;
-});
+var getOutlook = function () {
+  return isolateValue(function () {
+    return getWeather().outlook;
+  });
+};
 ```
 
 Calling `getOutlook()` won't trigger an invalidation if the temperature or
