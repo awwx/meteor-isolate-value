@@ -197,3 +197,9 @@ var getOutlook = function () {
 
 Calling `getOutlook()` won't trigger an invalidation if the temperature or
 wind speed changes as long as the outlook stays the same.
+
+
+## Support
+
+Support my work by making a weekly contribution of your choice with
+[Gittip](https://www.gittip.com/awwx/).
