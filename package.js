@@ -8,6 +8,9 @@ Package.on_use(function (api) {
     'ejson'
   ], 'client');
 
+  if (api.export)
+    api.export('isolateValue', 'client');
+
   api.add_files([
     'isolate.coffee'
   ], 'client');

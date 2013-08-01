@@ -31,7 +31,7 @@ changes.
 
 ## Version
 
-2.0.0
+2.0.1
 
 
 ## API
@@ -60,7 +60,7 @@ value](http://docs.meteor.com/#ejson).
 
 When used with the Meteor linker, the package exports `isolateValue`.
 
-When used with Meteor 0.6.4 and below, `isolateValue` is exported into
+When used with Meteor 0.6.4.1 and below, `isolateValue` is exported into
 the global namespace.
 
 

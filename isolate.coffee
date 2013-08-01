@@ -1,5 +1,3 @@
-### @export isolateValue ###
-
 isolateValue = (fn) ->
   firstTime = true
   lastValue = null
