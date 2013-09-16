@@ -33,8 +33,9 @@ you want to *prevent* templates from re-rendering when you don’t want
 them to (such as when you want to preserve element state or you’ve
 added your own elements that you don’t want Meteor to remove), using
 isolate-value for this purpose will likely lead to a fragile design
-&mdash; one where you may find yourself continuing to look for more
-places to prevent templates to re-render.
+&mdash; one where you may find yourself needing to look for more
+places to prevent your templates from re-rendering.
+To keep elements from changing even if reactive data changes,
 [constant](http://docs.meteor.com/#constant) and
 [preserve](http://docs.meteor.com/#template_preserve) are usually
 better choices.
