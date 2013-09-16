@@ -28,6 +28,17 @@ reactive computation to only depend on the end result of a
 computation, and so will only rerender or rerun if that result
 changes.
 
+Note that isolate-value is a *performance optimization*.  If instead
+you want to *prevent* templates from re-rendering when you don’t want
+them to (such as when you want to preserve element state or you’ve
+added your own elements that you don’t want Meteor to remove), using
+isolate-value for this purpose will likely lead to a fragile design
+&mdash; one where you may find yourself continuing to look for more
+places to prevent templates to re-render.
+[constant](http://docs.meteor.com/#constant) and
+[preserve](http://docs.meteor.com/#template_preserve) are usually
+better choices.
+
 
 ## Version
 
@@ -199,7 +210,21 @@ Calling `getOutlook()` won't trigger an invalidation if the temperature or
 wind speed changes as long as the outlook stays the same.
 
 
-## Support
+## Donate
 
-Support my work by making a weekly contribution of your choice with
-[Gittip](https://www.gittip.com/awwx/).
+An easy and effective way to support the continued maintenance of this
+package and the development of new and useful packages is to [donate
+through Gittip](https://www.gittip.com/awwx/).
+
+Gittip is a [platform for sustainable
+crowd-funding](https://www.gittip.com/about/faq.html).
+
+Help build an ecosystem of well maintained, quality Meteor packages by
+joining the
+[Gittip Meteor Community](https://www.gittip.com/for/meteor/).
+
+
+## Hire
+
+Need support, debugging, or development for your project?  You can
+[hire me](http://awwx.ws/hire-me) to help out.
